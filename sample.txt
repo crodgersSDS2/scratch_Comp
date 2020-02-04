@@ -1,0 +1,43 @@
+'''
+from mainEdit import build_ui
+#from compversions import compVersions
+
+
+from Designable.ProcessableComponent import ProcessableComponent
+from sds2.utility.gadget_protocol import GadgetComponent
+from kwargmixin.kwargmixin import KWArgMixin
+from Point3D import Point3D
+import model
+
+member_Types = ['joist','beam','column','verticle brace', 'horizontal brace', 'girt','purlin','misc','stair','custom']
+#@compVersions
+class Main_Comp(GadgetComponent, ProcessableComponent, KWArgMixin):
+
+    def __init__(self, **kwargs):
+       #compVersions.init_factory()(self, **kwargs) #  run the init from the
+       ProcessableComponent.__init__(self, **kwargs)
+       KWArgMixin.__init__(self, **kwargs)
+
+    def IsAllowedOnMember(self, mn):
+        return True
+
+    def SetReferencePointForMemberUI(self, mn):
+        self.ref_point = Point3D(0., 0., 0.)
+
+    def Add(self, mn):
+        return True
+
+    @classmethod
+    def Factory(cls, host, member_universe):
+        comp = cls()
+        comp.x = 4
+        return comp
+
+    @staticmethod
+    def CreateCustomMultiEditableUI(model, gadget_factory):
+        build_ui(model, gadget_factory)
+
+
+    def DesignForMember(self, mn):
+        return True
+'''

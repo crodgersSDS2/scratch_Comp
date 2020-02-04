@@ -9,7 +9,7 @@ from main import Main_Comp
 
 
 #this adds it to the list of "select component type"
-RegisterComponentType(Main_Comp, "Main Label ")
+RegisterComponentType(Main_Comp, "A_Main Label")
 #RegisterPluginSetup(comp, None)
 
 #con32 = Commands.Icon(image1)
