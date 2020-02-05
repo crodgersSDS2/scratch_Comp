@@ -31,6 +31,9 @@ class Main_Comp(GC, DPC):
     def Width(self):
         return self.HostDepth - (2 * self.HostFlangeThick)
     @property
+    def HostDepth(self):
+        return Shape(model.member(self.member_number).section_size).Depth
+    @property
     def HostFlangeThick(self):
         return Shape(
             model.member(self.member_number).section_size
