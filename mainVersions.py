@@ -7,7 +7,7 @@ import job
 
 class_arg = {
 'material': None,
-'point': None,
+'point1': None,
 'type': 'Standard round',
 'matchable':True,
 'materialface': 'Web NS',
@@ -29,13 +29,12 @@ class_arg = {
 }
 
 class mainVersions(ComponentMetamorphoses):
-    versions = {}
-    versions[0] = Version(
-        for k in class_arg:
-          Attr(k,class_arg[k])
+  versions = {}
+  versions[0] = Version(
+    Attr('x', class_arg['boltdiameter']),
+    Attr('y', class_arg['diameter']),
+    Attr('z',class_arg['type']),
     )
-
-
 def LatestVersionNumber():
     return len(Versions) -1
 

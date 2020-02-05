@@ -1,6 +1,6 @@
-from Component import *
-from PluginSetupTools import RegisterPluginSetup
+from Component import RegisterComponentType
 from component_tools import RegisterComponentAddCommand
+#from PluginSetupTools import RegisterPluginSetup
 #import Commands
 #import os.path
 
@@ -9,7 +9,7 @@ from main import Main_Comp
 
 
 #this adds it to the list of "select component type"
-RegisterComponentType(Main_Comp, "A_Main Label")
+RegisterComponentType(Main_Comp, Main_Comp.titleStr)
 #RegisterPluginSetup(comp, None)
 
 #con32 = Commands.Icon(image1)
