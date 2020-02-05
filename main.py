@@ -9,20 +9,21 @@ from Component import PrepareComponentForMember
 from Designable.ProcessableComponent import ProcessableComponent as DPC
 from MemberBase import GetMemberLink
 from sds2.utility.gadget_protocol import GadgetComponent as GC
-#from kwargmixin.kwargmixin import KWArgMixin as KM
+# from kwargmixin.kwargmixin import KWArgMixin as KM
 from Point3D import Point3D as P3D
 import model
+from shape import Shape
 #mem1.Type (mem1.type) returns "Beam" or "Column" or "Vertical Brace" or "Horizontal Brc" or "Joist" or "Girt" or "Purlin" or "Misc" or "Stair" or "Custom" (read-only)
 member_Types = ['joist','beam','column','verticle brace','horizontal brace','girt','purlin','misc','stair','custom']
 @mainVersions
 class Main_Comp(GC, DPC):
     titleStr = 'A Main Component'
     Materials = design_material
-    def _init_(self, **kwargs):
-        DPC._init_(self, **kwargs)
+    def __init__(self, **kwargs):
+        DPC.__init__(self, **kwargs)
         mainVersions.init_factory()(self, **kwargs)
         #componentedit.MemberEditMethods._init_(self, **kwargs)
-        KM._init_(self, **kwargs)
+        # KM.__init__(self, **kwargs)
     @property
     def HostXform(self):
         var = GetMemberLink(self.member_number, False, False).GetXform()
@@ -42,9 +43,10 @@ class Main_Comp(GC, DPC):
     def Point1(self):
         var = (
             self.GetReferencePoint() +
-            -self.HostXform.GetBasisVectorY()
+            -self.HostXform.GetBasisVectorY() * 12. +
+            self.HostXform.GetBasisVectorX() * 12.
         )
-        return var
+        return var + P3D(model.member(self.member_number).ends[0].location)
 
     def IsAllowedOnMember(self, mn):
         return model.member(mn).member_type == model.Beam

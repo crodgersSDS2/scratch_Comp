@@ -6,6 +6,9 @@ from Layout3D import Layout3D
 from Transform3D import Transform3D
 from job import Job
 from sds2 import obj
+# from mtrl_list import MtrlLocate
+from Designable.Existing import NextMainMaterialOfMember
+from sds2.obj import mb
 
 def design_material(self):
 	atts = {
@@ -26,10 +29,10 @@ def design_material(self):
 	}
 
 	proxy = Hole(**atts)
-	proxy.SlotLength = proxy.calc_slot_lenght()
+	proxy.SlotLength = proxy.calc_slot_length()
 	proxy.Diameter = proxy.CalculateHoleSize()
 	proxy.BothSides = 'Yes'
-	proxy.Material = MtrlLocate('Locate material')
+	proxy.Material = NextMainMaterialOfMember(mb(self.member_number))
 
 	return proxy
 
