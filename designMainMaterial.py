@@ -3,12 +3,14 @@ import math
 
 from Designable.Proxies import Hole
 from Layout3D import Layout3D
+from mtrl_list import MtrlLocate
 from Transform3D import Transform3D
 from job import Job
 from sds2 import obj
 # from mtrl_list import MtrlLocate
 from Designable.Existing import NextMainMaterialOfMember
 from sds2.obj import mb
+
 
 def design_material(self):
 	atts = {
@@ -30,7 +32,7 @@ def design_material(self):
 
 	proxy = Hole(**atts)
 	proxy.SlotLength = proxy.calc_slot_length()
-	proxy.Diameter = proxy.CalculateHoleSize()
+	proxy.Diameter = proxy.calc_hole_size()
 	proxy.BothSides = 'Yes'
 	proxy.Material = NextMainMaterialOfMember(mb(self.member_number))
 
